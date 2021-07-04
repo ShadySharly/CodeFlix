@@ -23,7 +23,7 @@
       </b-row>
       <b-row align-h="center py-4 mt-2">
         <b-col class="col-6 col-md-3" >
-          <b-button class="btn-home-buscar">Buscar</b-button>
+          <b-button class="btn-home-buscar" :to="{name:'Search'}">Buscar</b-button>
         </b-col>
         <b-col class="col-6 col-md-3">
           <b-button class="btn-home-explorar">¿No sabes que buscar?</b-button>
@@ -52,6 +52,7 @@
   background-color: coral;
   border-color: coral;
   width: 100%;
+  border-radius: 55px;
 }
 
 .btn-home-explorar{
@@ -59,10 +60,11 @@
   border-color: #FFC463;
   width: 100%;
   color: #2D2E40;
+  border-radius: 55px;
 }
 
 .container-general{
-   background: rgb(226,226,226);
-background: linear-gradient(180deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 100%); 
+  background: rgb(226,226,226);
+  background: linear-gradient(180deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 100%); 
 }
 </style>
