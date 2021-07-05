@@ -24,9 +24,9 @@
             </b-row>
 
             <!-- Fila Resultados y filtros -->
-            <b-row class="mt-5"> 
+            <b-row class="mt-5 "> 
                 <!-- Columna Filtros -->
-                <b-col cols="3">
+                <b-col cols="3" sm="6" md="3">
                     <vertical-filter></vertical-filter>
                 </b-col>
                 <!-- Columna Resultados -->
