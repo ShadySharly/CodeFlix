@@ -6,7 +6,11 @@
        <!--Mostrando videos-->
       <b-container class=" m-2 p-3">
         <b-row>
-          <h4>Videos</h4>
+          <a href="/search/videos" class="link-to-videos">
+            <h4>
+              Videos
+            </h4>
+          </a>
         </b-row>
         <b-row class="no-gutters">
           <b-col cols="1" class="vertical-align">
@@ -69,7 +73,7 @@
                 class="mb-2 item p-0"
                 
               >
-                <a href="#" style="text-decoration:none; color: black">
+                <a href="#" class="link-card">
                     <b-card-img 
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Stack_Overflow_logo.svg/1280px-Stack_Overflow_logo.svg.png"
                     height="40px"
@@ -298,6 +302,9 @@ export default {
     scroll_right3() {
       let content = document.querySelector(".wrapper3");
       content.scrollLeft += 200;
+    },
+    goToVideosPage(){
+      this.$router.push({ name: 'SearchVideos' });
     }
   }
 }
@@ -417,6 +424,16 @@ export default {
     background-color: #488479;
     border-color: #488479;
 
+  }
+
+  .link-card{
+        text-decoration: none;
+        color: black;
+    }
+
+  .link-to-videos{
+    text-decoration: none;
+    color: black;
   }
   
   

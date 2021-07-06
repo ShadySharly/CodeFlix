@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Search from '../views/Search.vue'
+import SearchVideos from '../views/SearchVideos'
 
 Vue.use(VueRouter)
 
@@ -23,11 +24,17 @@ const routes = [
     path: '/search',
     name: 'Search',
     component: Search
+  },
+  {
+    path: '/search/videos',
+    name: 'SearchVideos',
+    component: SearchVideos
   }
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode:'history'
 })
 
 export default router
