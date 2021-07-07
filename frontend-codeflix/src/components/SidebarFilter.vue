@@ -1,7 +1,8 @@
 <template>
-    <div> 
-
-       <b-row class="titulo">
+  <div>
+    <b-button v-b-toggle.sidebar-variant class="button-toggle">Filtrar por</b-button>
+    <b-sidebar id="sidebar-variant" title="" bg-variant="dark" text-variant="light" shadow>
+             <b-row class="titulo">
             <h4 class="text-light font-weight-blod d-flex flex-row justify-content-center alig-items-center p-3">Filtrar por </h4>
        </b-row>
 
@@ -83,8 +84,8 @@
 
             </div>     
          </b-row> 
-    </div>
-  
+    </b-sidebar>
+  </div>
 </template>
 
 <script>
@@ -147,6 +148,11 @@ export default {
         text-decoration: none;
     }
 
+    .button-toggle{
+      border-radius: 12px;
+      width: 80%;
+      background-color: #2D2E40;
+    }
 
 
 </style>

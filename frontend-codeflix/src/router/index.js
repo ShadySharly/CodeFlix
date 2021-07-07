@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Search from '../views/Search.vue'
 import SearchVideos from '../views/SearchVideos'
+import SearchForos from '../views/SearchForos'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ const routes = [
     path: '/search/videos',
     name: 'SearchVideos',
     component: SearchVideos
+  },
+  {
+    path: '/search/foros',
+    name: 'SearchForos',
+    component: SearchForos
   }
 ]
 

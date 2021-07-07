@@ -57,7 +57,11 @@
         <!--Mostrando foros-->
       <b-container class=" m-2 p-3">
         <b-row>
-          <h4>Foros</h4>
+          <a href="/search/foros" class="link-to-videos">
+            <h4>
+              Foros
+            </h4>
+          </a>
         </b-row>
         <b-row class="no-gutters">
           <b-col cols="1" class="vertical-align">

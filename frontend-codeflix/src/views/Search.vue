@@ -26,7 +26,7 @@
             <!-- Fila Resultados y filtros -->
             <b-row class="mt-5 "> 
                 <!-- Columna Filtros -->
-                <b-col cols="3" sm="6" md="3">
+                <b-col class="d-none d-sm-none d-md-none d-lg-block" >
                     <vertical-filter></vertical-filter>
                 </b-col>
                 <!-- Columna Resultados -->

@@ -1,36 +1,40 @@
 <template>
-    <div class="mt-5">
+    <div class="mt-1 mt-sm-2 mt-md-5 mt-lg-5">
         <b-container>
-            <!-- Fila pa buscar, filtrar y volver -->
-            <b-row>
+            <!-- Fila pa buscar, filtrar y volver -->            
+            <b-row class="text-center" align-h="center">
                 <!-- Botón volver -->
-                <b-col cols="2" md="2" lg="2">
+                <b-col class="d-none d-sm-none d-md-block col-md-2 col-lg-2 mt-1 mt-sm-3">
                     <b-button class="btn-volver" :to="{name:'Home'}">
-                         <b-icon icon="arrow-left" class="mr-2 lead"></b-icon> 
+                         <b-icon icon="arrow-left" class="lead"></b-icon> 
                         Volver
                     </b-button>
                 </b-col>
                 <!-- Barra busqueda --> 
-                <b-col cols="8" md="8" lg="8">
+                <b-col class="col-12 col-sm-12 col-md-8 col-lg-8 mt-sm-3 mt-3">
                     <b-form-input placeholder="¿Qué estas buscando?">
                     </b-form-input>
                 </b-col>
                 <!-- Botón buscar -->
-                <b-col cols="2" md="2" lg="2">
+                <b-col class="col-6 col-sm-6 col-md-2 col-lg-2 mt-sm-3 mt-3">
                     <b-button class="btn-home-buscar" :to="{name:'Search'}">
                         Buscar
                     </b-button>
                 </b-col>
+                <b-col class="d-block d-sm-block d-md-block d-lg-none d-xl-none mt-3 col-6">
+                    <sidebar-filter></sidebar-filter>
+                </b-col>
+                
             </b-row>
 
             <!-- Fila Resultados y filtros -->
             <b-row class="mt-5 "> 
                 <!-- Columna Filtros -->
-                <b-col cols="3" sm="6" md="3">
+                <b-col class="d-none d-sm-none d-md-none d-lg-block col-lg-3" >
                     <vertical-filter></vertical-filter>
                 </b-col>
                 <!-- Columna Resultados -->
-                <b-col cols="8">
+                <b-col class="col-md-12 col-lg-9">
                     
                     <b-container class="container-videos">
                         <div class="py-md-3">
@@ -72,6 +76,7 @@
 
 <script>
 import VerticalFilter from '../components/VerticalFilter.vue'
+import SidebarFilter from '../components/SidebarFilter.vue'
 
 export default {
     name: 'SearchVideos',
@@ -126,37 +131,37 @@ export default {
     },
 
     components:{
-        VerticalFilter
+        VerticalFilter,
+        SidebarFilter
 
     }
 }
 </script>
 
 <style scoped>
-    .container-videos{
+    .container-foros{
         background: rgb(226,226,226);
         background: linear-gradient(180deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 100%); 
         height: 100%;
-        width: 120%;
+        width: 100%;
         border: 1px solid #ddd;
     }
     .btn-home-buscar{
         background-color: #F26E50;
         border-color: #F26E50;
-        width: 70%;
         border-radius: 12px;
+        width: 80%;
     }
 
     .btn-volver{
         background-color: white;
         color: black;
         border-radius: 12px;
+        width: 80%;
     }
     .link-card{
         text-decoration: none;
         color: black;
     }
     
-    
-
 </style>
