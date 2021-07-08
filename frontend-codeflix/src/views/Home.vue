@@ -18,28 +18,52 @@
       </b-row>
       <b-row>
         <b-col cols="12">
-          <b-form-input placeholder="¿Qué estas buscando?"></b-form-input>
+          <b-form-input placeholder="¿Qué estas buscando?" @input="showDismissibleAlert=false" v-model="query" ></b-form-input>
         </b-col>
       </b-row>
       <b-row align-h="center py-4 mt-2">
         <b-col class="col-6 col-md-3" >
-          <b-button class="btn-home-buscar" :to="{name:'Search'}">Buscar</b-button>
+          
+          <b-button v-if="this.query != '' " class="btn-home-buscar" @click="busqueda(query) ">Buscar</b-button>
+          <b-button v-else class="btn-home-buscar" @click="showDismissibleAlert=true">Buscar</b-button>
+           
         </b-col>
         <b-col class="col-6 col-md-3">
-          <b-button class="btn-home-explorar">¿No sabes que buscar?</b-button>
+          <b-button class="btn-home-explorar" >¿No sabes que buscar?</b-button>
         </b-col>
+      </b-row>
+
+      <b-row>
+        <!-- alerta -->
+           <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
+            Debes escribir una query
+          </b-alert>
       </b-row>
     </b-container>
   </section>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 
   export default {
+    
+    data () {
+      return{
+        query: '',
+        showDismissibleAlert: false,
+      }
+    },
+    
     name: 'Home',
 
     components: {
     },
+
+    methods: {
+      ...mapActions(['busqueda']),
+      
+    }
   }
 </script>
 

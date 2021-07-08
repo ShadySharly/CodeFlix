@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
@@ -13,6 +15,8 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
+//Axios
+Vue.use(VueAxios, axios)
 
 new Vue({
   router,

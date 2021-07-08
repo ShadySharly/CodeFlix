@@ -285,27 +285,27 @@ export default {
    methods: {
     scroll_left1() {
       let content = document.querySelector(".wrapper1");
-      content.scrollLeft -= 200;
+      content.scrollLeft -= 280;
     },
     scroll_right1() {
       let content = document.querySelector(".wrapper1");
-      content.scrollLeft += 200;
+      content.scrollLeft += 280;
     },
     scroll_left2() {
       let content = document.querySelector(".wrapper2");
-      content.scrollLeft -= 200;
+      content.scrollLeft -= 280;
     },
     scroll_right2() {
       let content = document.querySelector(".wrapper2");
-      content.scrollLeft += 200;
+      content.scrollLeft += 280;
     },
     scroll_left3() {
       let content = document.querySelector(".wrapper3");
-      content.scrollLeft -= 200;
+      content.scrollLeft -= 280;
     },
     scroll_right3() {
       let content = document.querySelector(".wrapper3");
-      content.scrollLeft += 200;
+      content.scrollLeft += 280;
     },
     goToVideosPage(){
       this.$router.push({ name: 'SearchVideos' });
@@ -321,7 +321,7 @@ export default {
     background: rgb(226,226,226);
     background: linear-gradient(180deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 100%); 
     height: 100%;
-    width: 120%;
+    width: 100%;
     border: 1px solid #ddd;
   }
 
@@ -371,8 +371,8 @@ export default {
   
   /* Eliminando scroll de cada bloque */
   ::-webkit-scrollbar {
-    -ms-overflow-style: none; /* for Internet Explorer, Edge */
-    display: none; /* for Chrome, Safari, and Opera */
+    -ms-overflow-style: auto; /* for Internet Explorer, Edge */
+    display: auto; /* for Chrome, Safari, and Opera */
   }
 
   /* Quitando scroll en Mozilla (acá poner estilos para mozilla) */

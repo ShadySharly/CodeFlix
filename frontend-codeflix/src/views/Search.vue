@@ -26,11 +26,11 @@
             <!-- Fila Resultados y filtros -->
             <b-row class="mt-5 "> 
                 <!-- Columna Filtros -->
-                <b-col class="d-none d-sm-none d-md-none d-lg-block" >
+                <b-col class="d-none d-sm-none d-md-none d-lg-block col-lg-3" >
                     <vertical-filter></vertical-filter>
                 </b-col>
                 <!-- Columna Resultados -->
-                <b-col cols="8">
+                <b-col cols="col-md-12 col-lg-9">
                     <result></result>
                 </b-col>
             </b-row>
