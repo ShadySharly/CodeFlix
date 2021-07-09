@@ -2,39 +2,16 @@
     <div class="mt-1 mt-sm-2 mt-md-5 mt-lg-5">
         <b-container>
             <!-- Fila pa buscar, filtrar y volver -->            
-            <b-row class="text-center" align-h="center">
-                <!-- Botón volver -->
-                <b-col class="d-none d-sm-none d-md-block col-md-2 col-lg-2 mt-1 mt-sm-3">
-                    <b-button class="btn-volver" :to="{name:'Home'}">
-                         <b-icon icon="arrow-left" class="lead"></b-icon> 
-                        Volver
-                    </b-button>
-                </b-col>
-                <!-- Barra busqueda --> 
-                <b-col class="col-12 col-sm-12 col-md-8 col-lg-8 mt-sm-3 mt-3">
-                    <b-form-input placeholder="¿Qué estas buscando?">
-                    </b-form-input>
-                </b-col>
-                <!-- Botón buscar -->
-                <b-col class="col-6 col-sm-6 col-md-2 col-lg-2 mt-sm-3 mt-3">
-                    <b-button class="btn-home-buscar" :to="{name:'Search'}">
-                        Buscar
-                    </b-button>
-                </b-col>
-                <b-col class="d-block d-sm-block d-md-block d-lg-none d-xl-none mt-3 col-6">
-                    <sidebar-filter></sidebar-filter>
-                </b-col>
-                
-            </b-row>
+            <barra-busqueda></barra-busqueda>
 
             <!-- Fila Resultados y filtros -->
             <b-row class="mt-5 "> 
                 <!-- Columna Filtros -->
-                <b-col class="d-none d-sm-none d-md-none d-lg-block col-lg-3" >
+                <b-col class="d-none d-sm-none d-md-none d-lg-block col-lg-3 col-xl-2">
                     <vertical-filter></vertical-filter>
                 </b-col>
                 <!-- Columna Resultados -->
-                <b-col class="col-md-12 col-lg-9">
+                <b-col class="col-md-12 col-lg-9 col-xl-10">
                     
                     <b-container class="container-foros">
                         <div class="py-md-3">
@@ -80,7 +57,7 @@
 
 <script>
 import VerticalFilter from '../components/VerticalFilter.vue'
-import SidebarFilter from '../components/SidebarFilter.vue'
+import BarraBusqueda from '../components/BarraBusqueda.vue'
 
 export default {
     data() {
@@ -146,7 +123,7 @@ export default {
 
     components: {
         VerticalFilter,
-        SidebarFilter
+        BarraBusqueda
     }
 }
 </script>

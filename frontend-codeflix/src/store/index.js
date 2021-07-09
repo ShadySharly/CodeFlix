@@ -20,7 +20,9 @@ export default new Vuex.Store({
     },
 
     // esta ruta es para volver
-    rutaRegreso:"/"
+    rutaRegreso:"/",
+
+    typeFilter: {value: true, vista: 'Search'}
   },
 
   mutations: {
@@ -35,6 +37,28 @@ export default new Vuex.Store({
     // esta es una funcion de flecha (aun no sabemos la diferencia pero funciona)
     setRutaRegreso: (state, url) =>{
       state.rutaRegreso = url
+    },
+
+    changeTypeFilter: (state, vista) =>{
+      if(vista == 'volver'){
+        if(state.typeFilter.value == false && state.typeFilter.vista == 'Videos'){
+          state.typeFilter.value = true;
+          state.typeFilter.vista = 'search'
+        }
+      }
+      else if( vista == 'Videos'){
+        state.typeFilter.value = false;
+        state.typeFilter.vista = 'Videos'
+      }
+
+      
+
+      if (state.typeFilter.value == true && vista == 'SearchVideos'){
+        state.typeFilter.value = false
+      }
+      else if( state.typeFilter.value == true){
+        state.typeFilter.value = true;
+      }
     }
   },
   
@@ -67,6 +91,10 @@ export default new Vuex.Store({
 
     getRutaRegreso: state => {
       return state.rutaRegreso;
+    },
+
+    getTypeFilter: state => {
+      return state.typeFilter.value;
     }
   },
 

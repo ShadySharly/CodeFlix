@@ -7,11 +7,11 @@
             <!-- Fila Resultados y filtros -->
             <b-row class="mt-5 "> 
                 <!-- Columna Filtros -->
-                <b-col class="d-none d-sm-none d-md-none d-lg-block col-lg-3" >
+                <b-col class="d-none d-sm-none d-md-none d-lg-block col-lg-3 col-xl-2">
                     <vertical-filter></vertical-filter>
                 </b-col>
                 <!-- Columna Resultados -->
-                <b-col class="col-md-12 col-lg-9">
+                <b-col class="col-md-12 col-lg-9 col-xl-10">
                     
                     <b-container class="container-videos">
                         <div class="py-md-3">
@@ -53,7 +53,7 @@
 
 <script>
 import VerticalFilter from '../components/VerticalFilter.vue'
-import SidebarFilter from '../components/SidebarFilter.vue'
+
 import BarraBusqueda from '../components/BarraBusqueda.vue'
 
 export default {
@@ -110,7 +110,6 @@ export default {
 
     components:{
         VerticalFilter,
-        SidebarFilter,
         BarraBusqueda,
 
     }
@@ -118,7 +117,7 @@ export default {
 </script>
 
 <style scoped>
-    .container-foros{
+    .container-videos{
         background: rgb(226,226,226);
         background: linear-gradient(180deg, rgba(226,226,226,1) 0%, rgba(255,255,255,1) 100%); 
         height: 100%;

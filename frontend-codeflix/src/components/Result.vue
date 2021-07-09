@@ -6,11 +6,12 @@
        <!--Mostrando videos-->
       <b-container class=" m-2 p-3">
         <b-row>
-          <router-link :to="{name:'SearchVideos'}" class="link-to-videos">
-            <h4>
+          <div class="m-0 p-0">
+            <b-button variant="link" class="link" @click="filtrarPorVideos()">
               Videos
-            </h4>
-          </router-link>
+              <b-icon font-scale="0.9" icon="arrow-up-right-circle"></b-icon>
+            </b-button>
+          </div>
         </b-row>
         <b-row class="no-gutters">
           <b-col cols="1" class="vertical-align">
@@ -57,11 +58,12 @@
         <!--Mostrando foros-->
       <b-container class=" m-2 p-3">
         <b-row>
-          <a href="/search/foros" class="link-to-videos">
-            <h4>
+          <div class="m-0 p-0">
+            <b-button variant="link" class="link" @click="filtrarPorForos()">
               Foros
-            </h4>
-          </a>
+              <b-icon font-scale="0.9" icon="arrow-up-right-circle"></b-icon>
+            </b-button>
+          </div>
         </b-row>
         <b-row class="no-gutters">
           <b-col cols="1" class="vertical-align">
@@ -166,7 +168,7 @@
 
 <!-- ***********************************************   Script   ******************************************************************** -->
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
 
 export default {
   data(){
@@ -288,7 +290,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getVideos', 'getForos', 'getArticulos'])
+    ...mapGetters(['getVideos', 'getForos', 'getArticulos', 'getRutaRegreso'])
   },
 
   mounted() {
@@ -297,7 +299,24 @@ export default {
     this.articulos = this.getArticulos;
   },
 
+  created(){
+    this.setRutaRegreso('Home')
+  },
+
   methods: {
+    ...mapMutations(['setRutaRegreso', 'changeTypeFilter']),
+    
+    filtrarPorVideos(){
+      this.changeTypeFilter('Videos');
+      this.setRutaRegreso('Search');
+      this.$router.replace({name: 'SearchVideos'})
+    },
+
+    filtrarPorForos(){
+      this.setRutaRegreso('Search');
+      this.$router.replace({name: 'SearchForos'})
+    },
+
     scroll_left1() {
       let content = document.querySelector(".wrapper1");
       content.scrollLeft -= 280;
@@ -322,9 +341,6 @@ export default {
       let content = document.querySelector(".wrapper3");
       content.scrollLeft += 280;
     },
-    goToVideosPage(){
-      this.$router.push({ name: 'SearchVideos' });
-    }
   }
 }
 </script>
@@ -452,9 +468,13 @@ export default {
         color: black;
     }
 
-  .link-to-videos{
+  .link{
+    font-size: 1.5rem;
     text-decoration: none;
-    color: black;
+    color: #2D2E40;
+  }
+  .link:hover{
+    color: #F26E50;
   }
   
   

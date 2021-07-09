@@ -13,7 +13,6 @@
                     <a v-b-toggle href="#my-format" class="d-block text-light p-3 v-b-toggle" @click.prevent>
                         <b-icon icon="search" class="mr-2 lead"></b-icon> 
                         Formato
-                        <b-spacer></b-spacer>
                         <b-icon icon="chevron-compact-down" class=" lead offset-md-5"></b-icon> 
                     </a>
 

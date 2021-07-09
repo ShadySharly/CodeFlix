@@ -7,7 +7,7 @@
 
     <b-row class="container-filtro">
         <div class="menu">
-            <div v-if="typeFilter">
+            <div v-if="this.getTypeFilter()">
 
                 <!-- boton de formato -->
                 <a v-b-toggle href="#my-format" class="d-block text-light v-b-toggle" @click.prevent>
@@ -26,24 +26,31 @@
 
                 <b-collapse id="my-format">
                     <b-row class="ml-4" v-for="format in formats" v-bind:title="format.type" :key="format.id">
-                        <b-link class="b-link" :href="format.url">{{format.type}} [{{format.number}}]</b-link>
+                        <b-link class="b-link" @click="filtrar(format.url, format.type)">{{format.type}} [{{format.number}}]</b-link>
                     </b-row>
                 </b-collapse>
             </div>
 
             <div v-else>
                 <!-- Botón Duración de los videos -->
-                <a v-b-toggle href="#my-duration" class="d-block text-light p-3 v-b-toggle" @click.prevent>
-                    <b-icon icon="alarm" class="mr-2 lead"></b-icon>
-                    Duración
-                    <b-icon icon="chevron-compact-down" class="mr-2 lead offset-md-6"></b-icon>
+                <a v-b-toggle href="#my-duration" class="d-block text-light v-b-toggle" @click.prevent>
+                    <div class="d-flex ">
+                        <div class="py-3 px-1 ">
+                            <b-icon icon="alarm" class="mr-2 lead"></b-icon>
+                        </div>
+                        <div class="py-3 ">
+                            <span class="ml-auto">Duración</span>
+                        </div>
+                        <div class="py-3 px-1 ms-auto">
+                            <b-icon icon="chevron-compact-down" class="lead"></b-icon>
+                        </div>
+                    </div>
                 </a>
                 <!-- Desplegable duración videos -->
                 <b-collapse id="my-duration" class="p-3">
                     <div>
-                        <label for="range-1">Duración:</label>
-                        <b-form-input id="range-2" v-model="value" type="range" :min="duracionMin" :max="duracionMax" step="1"></b-form-input>
-                        <div class="mt-2">Tiempo: {{ value }} Minutos</div>
+                        <b-form-input id="range-2" v-model="valueDuracion" type="range" :min="duracionMin" :max="duracionMax" step="1"></b-form-input>
+                        <div class="mt-2">Tiempo: {{ valueDuracion }} Minutos</div>
                     </div>
                 </b-collapse>
             </div>
@@ -96,17 +103,17 @@
                     <b-input-group class="mb-3">
                         <b-form-input id="example-input" v-model="valueDateDesde" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
                         <b-input-group-append>
-                            <b-form-datepicker v-model="valueDateDesde" button-only right locale="en-US" aria-controls="example-input" @context="onContext"></b-form-datepicker>
+                            <b-form-datepicker v-model="valueDateDesde" button-only right locale="en-US" aria-controls="example-input" @context="onContextDatePicker1"></b-form-datepicker>
                         </b-input-group-append>
                     </b-input-group>
                 </div>
-                
+
                 <div>
                     <label for="example-input">Hasta</label>
                     <b-input-group class="mb-3">
                         <b-form-input id="example-input" v-model="valueDateHasta" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
                         <b-input-group-append>
-                            <b-form-datepicker v-model="valueDateHasta" button-only right locale="en-US" aria-controls="example-input" @context="onContext"></b-form-datepicker>
+                            <b-form-datepicker v-model="valueDateHasta" button-only right locale="en-US" aria-controls="example-input" @context="onContextDatePicker2"></b-form-datepicker>
                         </b-input-group-append>
                     </b-input-group>
                 </div>
@@ -118,6 +125,11 @@
 </template>
 
 <script>
+import {
+    mapMutations, mapGetters
+} from 'vuex'
+
+
 export default {
     data() {
         return {
@@ -126,24 +138,25 @@ export default {
             formats: [{
                     type: 'Videos',
                     number: 0,
-                    url: "/"
+                    url: "SearchVideos"
                 },
                 {
                     type: 'Foros',
                     number: 0,
-                    url: "/"
+                    url: "SearchForos"
                 },
                 {
                     type: 'Tutoriales',
                     number: 0,
-                    url: "/"
+                    url: "Home"
                 },
             ],
 
             // Data del boton duracion
             duracionMin: '1',
             duracionMax: '60',
-            
+            valueDuracion: '0',
+
             // Data del botón Lenguaje
             selectedLenguaje: [], // Must be an array reference!
             optionsLenguje: [{
@@ -163,7 +176,39 @@ export default {
             // Data del boton Fecha 
             valueDateDesde: '',
             valueDateHasta: '',
+            formattedDesde: '',
+            formattedHasta: '',
+            selectedDesde: '',
+            selectedHasta: ''
+
         }
+    },
+    methods: {
+        ...mapMutations(['setRutaRegreso', 'changeTypeFilter']),
+        ...mapGetters(['getTypeFilter']),
+
+        onContextDatePicker1(ctx) {
+            // The date formatted in the locale, or the `label-no-date-selected` string
+            this.formattedDesde = ctx.selectedFormatted
+            // The following will be an empty string until a valid date is entered
+            this.selectedDesde = ctx.selectedYMD
+        },
+
+        onContextDatePicker2(ctx) {
+            // The date formatted in the locale, or the `label-no-date-selected` string
+            this.formattedHasta = ctx.selectedFormatted
+            // The following will be an empty string until a valid date is entered
+            this.selectedHasta = ctx.selectedYMD
+        },
+
+        filtrar(url, type) {
+            this.changeTypeFilter(type);
+            this.setRutaRegreso('Search');
+            this.$router.replace({
+                name: url
+            });
+
+        },
     }
 }
 </script>

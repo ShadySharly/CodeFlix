@@ -68,8 +68,8 @@ import {mapActions, mapMutations} from 'vuex'
       // Funcion que realiza la busqueda y llama a la vista de resultados
       async buscar(query){
         await this.busqueda(query);
-        this.setRutaRegreso('/')
-        this.$router.push('Search');
+        this.setRutaRegreso('Home')
+        this.$router.replace('Search');
       }   
     },
   }

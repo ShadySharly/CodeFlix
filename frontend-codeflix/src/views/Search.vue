@@ -11,7 +11,7 @@
                 <vertical-filter></vertical-filter>
             </b-col>
             <!-- Columna Resultados -->
-            <b-col cols="col-md-12 col-lg-9 col-xl-10">
+            <b-col class="col-md-12 col-lg-9 col-xl-10">
                 <result></result>
             </b-col>
         </b-row>
@@ -36,7 +36,7 @@ export default {
 
     methods:{
         ...mapMutations(['setRutaRegreso']),
-        
+
     }
 }
 </script>

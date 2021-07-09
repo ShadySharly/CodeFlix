@@ -3,7 +3,7 @@
 <b-row class="text-center">
     <!-- Botón volver -->
     <b-col class="d-none d-sm-none d-md-block col-md-2 col-lg-2 mt-1 mt-sm-3">
-        <b-button class="btn-volver" :to="{name:'Home'}">
+        <b-button class="btn-volver" @click="volver()">
             <b-icon icon="arrow-left" class="lead"></b-icon>
             Volver
         </b-button>
@@ -27,6 +27,9 @@
 </template>
 
 <script>
+import SidebarFilter from '../components/SidebarFilter.vue'
+import {mapGetters, mapMutations} from 'vuex'
+
 export default {
     data(){
         return {
@@ -37,7 +40,19 @@ export default {
     name: "BarraBusqueda",
 
     components:{
-        
+        SidebarFilter
+
+    },
+
+    methods:{
+        ...mapGetters(['getRutaRegreso']),
+        ...mapMutations(['changeTypeFilter']),
+
+        volver(){
+            this.changeTypeFilter('volver');
+            let componente = this.getRutaRegreso();
+            this.$router.replace({name: componente})
+        }
     }
 }
 </script>
