@@ -17,7 +17,10 @@ export default new Vuex.Store({
     },
     articulos:{
 
-    }
+    },
+
+    // esta ruta es para volver
+    rutaRegreso:"/"
   },
 
   mutations: {
@@ -26,26 +29,47 @@ export default new Vuex.Store({
       state.videos = data.videos;
       state.foros = data.foros;
       state.articulos = data.articulos;
-      console.log(state.articulos)
+      console.log(state.videos)
+    },
+
+    // esta es una funcion de flecha (aun no sabemos la diferencia pero funciona)
+    setRutaRegreso: (state, url) =>{
+      state.rutaRegreso = url
     }
   },
   
   actions: {
     async busqueda({commit}, query){
-      console.log("entra a busqueda")
       let result = null;
+      const url = "http://localhost:3000/data";
       // se consume el backend
       // seba y franco del futuro --> ***** añadir la query a la url ******
-      await axios.get("http://localhost:3000/data").then((response) => {
+      await axios.get(url).then((response) => {
       result = response.data;
     })
-      console.log('hace el axios')
-      console.log(result.videos[0].titulo)
       // Se llama a la función setBusqueda que está en Mutations
       commit('setBusqueda', result);
 
     }  
   },
+  getters: {
+    getVideos: state => {
+      return state.videos;
+    },
+
+    getForos: state => {
+      return state.foros;
+    },
+
+    getArticulos: state => {
+      return state.articulos;
+    },
+
+    getRutaRegreso: state => {
+      return state.rutaRegreso;
+    }
+  },
+
   modules: {
   }
 })

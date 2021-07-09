@@ -6,11 +6,11 @@
        <!--Mostrando videos-->
       <b-container class=" m-2 p-3">
         <b-row>
-          <a href="/search/videos" class="link-to-videos">
+          <router-link :to="{name:'SearchVideos'}" class="link-to-videos">
             <h4>
               Videos
             </h4>
-          </a>
+          </router-link>
         </b-row>
         <b-row class="no-gutters">
           <b-col cols="1" class="vertical-align">
@@ -162,7 +162,12 @@
   </div>
 </template>
 
+
+
+<!-- ***********************************************   Script   ******************************************************************** -->
 <script>
+import {mapGetters} from 'vuex'
+
 export default {
   data(){
     return{
@@ -282,7 +287,17 @@ export default {
     }
   },
 
-   methods: {
+  computed: {
+    ...mapGetters(['getVideos', 'getForos', 'getArticulos'])
+  },
+
+  mounted() {
+    this.videos = this.getVideos;
+    this.foros = this.getForos;
+    this.articulos = this.getArticulos;
+  },
+
+  methods: {
     scroll_left1() {
       let content = document.querySelector(".wrapper1");
       content.scrollLeft -= 280;
@@ -314,6 +329,8 @@ export default {
 }
 </script>
 
+
+<!-- ***********************************************   Estilos ******************************************************************** -->
 <style scoped>
 
   /* Background panel */

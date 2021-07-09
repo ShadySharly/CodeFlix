@@ -2,30 +2,7 @@
     <div class="mt-1 mt-sm-2 mt-md-5 mt-lg-5">
         <b-container>
             <!-- Fila pa buscar, filtrar y volver -->            
-            <b-row class="text-center" align-h="center">
-                <!-- Botón volver -->
-                <b-col class="d-none d-sm-none d-md-block col-md-2 col-lg-2 mt-1 mt-sm-3">
-                    <b-button class="btn-volver" :to="{name:'Home'}">
-                         <b-icon icon="arrow-left" class="lead"></b-icon> 
-                        Volver
-                    </b-button>
-                </b-col>
-                <!-- Barra busqueda --> 
-                <b-col class="col-12 col-sm-12 col-md-8 col-lg-8 mt-sm-3 mt-3">
-                    <b-form-input placeholder="¿Qué estas buscando?">
-                    </b-form-input>
-                </b-col>
-                <!-- Botón buscar -->
-                <b-col class="col-6 col-sm-6 col-md-2 col-lg-2 mt-sm-3 mt-3">
-                    <b-button class="btn-home-buscar" :to="{name:'Search'}">
-                        Buscar
-                    </b-button>
-                </b-col>
-                <b-col class="d-block d-sm-block d-md-block d-lg-none d-xl-none mt-3 col-6">
-                    <sidebar-filter></sidebar-filter>
-                </b-col>
-                
-            </b-row>
+            <barra-busqueda></barra-busqueda>
 
             <!-- Fila Resultados y filtros -->
             <b-row class="mt-5 "> 
@@ -77,6 +54,7 @@
 <script>
 import VerticalFilter from '../components/VerticalFilter.vue'
 import SidebarFilter from '../components/SidebarFilter.vue'
+import BarraBusqueda from '../components/BarraBusqueda.vue'
 
 export default {
     name: 'SearchVideos',
@@ -132,7 +110,8 @@ export default {
 
     components:{
         VerticalFilter,
-        SidebarFilter
+        SidebarFilter,
+        BarraBusqueda,
 
     }
 }
@@ -145,19 +124,6 @@ export default {
         height: 100%;
         width: 100%;
         border: 1px solid #ddd;
-    }
-    .btn-home-buscar{
-        background-color: #F26E50;
-        border-color: #F26E50;
-        border-radius: 12px;
-        width: 80%;
-    }
-
-    .btn-volver{
-        background-color: white;
-        color: black;
-        border-radius: 12px;
-        width: 80%;
     }
     .link-card{
         text-decoration: none;

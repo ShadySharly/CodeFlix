@@ -1,7 +1,7 @@
 <template>
   <section>
     <b-container class="container-general mx-auto mt-3 p-5">
-       <b-row align-h="center" class="pt-0 pb-3">
+       <b-row class="pt-0 pb-3 justify-content-center">
         <b-col class="col-md-3 col-7 pt-0" >
           <b-img :src="require('../assets/codeflix-icon.gif')" fluid alt="Fluid image"></b-img>
         </b-col>
@@ -21,10 +21,10 @@
           <b-form-input placeholder="¿Qué estas buscando?" @input="showDismissibleAlert=false" v-model="query" ></b-form-input>
         </b-col>
       </b-row>
-      <b-row align-h="center py-4 mt-2">
+      <b-row class="py-4 mt-2 justify-content-center">
         <b-col class="col-6 col-md-3" >
           
-          <b-button v-if="this.query != '' " class="btn-home-buscar" @click="busqueda(query) ">Buscar</b-button>
+          <b-button v-if="this.query != '' " class="btn-home-buscar" @click="buscar(query)" >Buscar</b-button>
           <b-button v-else class="btn-home-buscar" @click="showDismissibleAlert=true">Buscar</b-button>
            
         </b-col>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapMutations} from 'vuex'
 
   export default {
     
@@ -61,9 +61,17 @@ import {mapActions} from 'vuex'
     },
 
     methods: {
+      // Función que trae la función busqueda definida en Store.actions (Vuex)
       ...mapActions(['busqueda']),
-      
-    }
+      ...mapMutations(['setRutaRegreso']),
+
+      // Funcion que realiza la busqueda y llama a la vista de resultados
+      async buscar(query){
+        await this.busqueda(query);
+        this.setRutaRegreso('/')
+        this.$router.push('Search');
+      }   
+    },
   }
 </script>
 
