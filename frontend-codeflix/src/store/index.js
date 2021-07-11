@@ -19,6 +19,8 @@ export default new Vuex.Store({
 
     },
 
+    queryPersonalizada: [],
+
     // esta ruta es para volver
     rutaRegreso:"/",
 
@@ -59,7 +61,11 @@ export default new Vuex.Store({
       else if( state.typeFilter.value == true){
         state.typeFilter.value = true;
       }
-    }
+    },
+
+    setQueryPersonalizada: (state, queryResult)=>{
+      state.queryPersonalizada = queryResult;
+    } 
   },
   
   actions: {
@@ -74,7 +80,18 @@ export default new Vuex.Store({
       // Se llama a la función setBusqueda que está en Mutations
       commit('setBusqueda', result);
 
-    }  
+    },
+    
+    async busquedaQueryPersonalizada({commit}, idRecurso){
+      let result = null;
+      const url = "http://localhost:3000/query";
+
+      await axios.get(url).then((response) => {
+        result = response.data;
+      });
+      console.log(result);
+      commit('setQueryPersonalizada', result);
+    }
   },
   getters: {
     getVideos: state => {
@@ -95,6 +112,10 @@ export default new Vuex.Store({
 
     getTypeFilter: state => {
       return state.typeFilter.value;
+    },
+
+    getQueryPersonalizada: state => {
+      return state.queryPersonalizada;
     }
   },
 

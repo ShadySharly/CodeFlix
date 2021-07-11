@@ -23,9 +23,10 @@
             </b-button>
           </b-col>
           <b-col class="wrapper1" cols="10">
-            <b-col  v-for="video in videos" v-bind:title="video.titulo" :key="video.id">
+            <b-col  v-for="(video, index) in videos" v-bind:title="video.titulo" :key="index">
               <!-- Card con los vídeos -->
-              <b-card
+
+                <b-card
                 :title= video.name
                 :img-src= video.url_imagen_video
                 img-alt="Image"
@@ -33,7 +34,8 @@
                 tag="article"
                 class="mb-2 item"
               >
-              <a href="#" class="stretched-link"></a>
+              <a href="#" v-bind:class="queryPersonalizada" @click="queryPersonalizada(video.id)" class="stretched-link"></a>
+
                 <b-card-title class="mt-md-2 ml-md-2">{{video.titulo}}</b-card-title>
                   <b-card-body class="p-lg-2">
                     <b-avatar variant="info" src="https://placekitten.com/300/300" class="mr-3 ml-lg-0"></b-avatar>
@@ -168,123 +170,14 @@
 
 <!-- ***********************************************   Script   ******************************************************************** -->
 <script>
-import {mapGetters, mapMutations} from 'vuex'
+import {mapGetters, mapMutations, mapActions} from 'vuex'
 
 export default {
   data(){
     return{
-      videos: [
-       {
-                titulo: "video_1",
-                autor: "autor_1",
-                url_imagen_autor: "url",
-                link_video: "https://www.youtube.com/embed/zpOULjyy-n8?rel=0",
-                url_imagen_video: "https://i.ytimg.com/an_webp/zpOULjyy-n8/mqdefault_6s.webp?du=3000&sqp=CO-piYcG&rs=AOn4CLBv_eQfxVHmfIewuSjgIVwoNmBL0Q",
-            },
-            {
-                titulo: "video_2",
-                autor: "autor_2",
-                url_imagen_autor: "url",
-                link_video: "https://www.youtube.com/embed/zpOULjyy-n8?rel=0",
-                url_imagen_video: "https://i.ytimg.com/an_webp/zpOULjyy-n8/mqdefault_6s.webp?du=3000&sqp=CO-piYcG&rs=AOn4CLBv_eQfxVHmfIewuSjgIVwoNmBL0Q",
-            },
-            {
-                titulo: "video_3",
-                autor: "autor_3",
-                url_imagen_autor: "url",
-                link_video: "https://www.youtube.com/embed/zpOULjyy-n8?rel=0",
-                url_imagen_video: "https://i.ytimg.com/an_webp/zpOULjyy-n8/mqdefault_6s.webp?du=3000&sqp=CO-piYcG&rs=AOn4CLBv_eQfxVHmfIewuSjgIVwoNmBL0Q",
-            },
-            {
-                titulo: "video_4",
-                autor: "autor_4",
-                url_imagen_autor: "url",
-                link_video: "https://www.youtube.com/embed/zpOULjyy-n8?rel=0",
-                url_imagen_video: "https://i.ytimg.com/an_webp/zpOULjyy-n8/mqdefault_6s.webp?du=3000&sqp=CO-piYcG&rs=AOn4CLBv_eQfxVHmfIewuSjgIVwoNmBL0Q",
-            },
-            {
-                titulo: "video_5",
-                autor: "autor_5",
-                url_imagen_autor: "url",
-                link_video: "https://www.youtube.com/embed/zpOULjyy-n8?rel=0",
-                url_imagen_video: "https://i.ytimg.com/an_webp/zpOULjyy-n8/mqdefault_6s.webp?du=3000&sqp=CO-piYcG&rs=AOn4CLBv_eQfxVHmfIewuSjgIVwoNmBL0Q",
-            },
-            {
-                titulo: "video_6",
-                autor: "autor_6",
-                url_imagen_autor: "url",
-                link_video: "https://www.youtube.com/embed/zpOULjyy-n8?rel=0",
-                url_imagen_video: "https://i.ytimg.com/an_webp/zpOULjyy-n8/mqdefault_6s.webp?du=3000&sqp=CO-piYcG&rs=AOn4CLBv_eQfxVHmfIewuSjgIVwoNmBL0Q",
-            }
-    ],
-    foros: [
-        { name: "Foro 1" ,
-          tags: [
-            {nombre:"python"},
-            {nombre:"C"},
-            {nombre:"Java"},
-          ]
-        },
-        { name: "Foro 2" ,
-          tags: [
-            {nombre:"python"},
-            {nombre:"C"},
-            {nombre:"Java"},
-            {nombre:"python"},
-            {nombre:"C"},
-            {nombre:"Java"},
-          ]
-        },
-        { name: "Foro 1" ,
-          tags: [
-            {nombre:"python"},
-            {nombre:"C"},
-            {nombre:"Java"},
-          ]
-        },
-        { name: "Foro 1" ,
-          tags: [
-            {nombre:"python"},
-            {nombre:"C"},
-            {nombre:"Java"},
-          ]
-        },
-        { name: "Foro 1" ,
-          tags: [
-            {nombre:"python"},
-            {nombre:"C"},
-            {nombre:"Java"},
-          ]
-        },
-        { name: "Foro 1" ,
-          tags: [
-            {nombre:"python"},
-            {nombre:"C"},
-            {nombre:"Java"},
-          ]
-        },
-        { name: "Foro 1" ,
-          tags: [
-            {nombre:"python"},
-            {nombre:"C"},
-            {nombre:"Java"},
-          ]
-        },
-      
-    ],
-    articulos: [
-      { name: "Artículos 1", link:"https://medium.com/serverlessguru/dockerizing-a-node-js-web-app-98799ca93cb6" },
-      { name: "Artículos 1", link:"https://medium.com/serverlessguru/dockerizing-a-node-js-web-app-98799ca93cb6" },
-      { name: "Artículos 1", link:"https://medium.com/serverlessguru/dockerizing-a-node-js-web-app-98799ca93cb6" },
-      { name: "Artículos 1", link:"https://medium.com/serverlessguru/dockerizing-a-node-js-web-app-98799ca93cb6" },
-      { name: "Artículos 1", link:"https://medium.com/serverlessguru/dockerizing-a-node-js-web-app-98799ca93cb6" },
-      { name: "Artículos 1", link:"https://medium.com/serverlessguru/dockerizing-a-node-js-web-app-98799ca93cb6" },
-      { name: "Artículos 1", link:"https://medium.com/serverlessguru/dockerizing-a-node-js-web-app-98799ca93cb6" },
-      { name: "Artículos 1", link:"https://medium.com/serverlessguru/dockerizing-a-node-js-web-app-98799ca93cb6" },
-      { name: "Artículos 1", link:"https://medium.com/serverlessguru/dockerizing-a-node-js-web-app-98799ca93cb6" },
-      { name: "Artículos 1", link:"https://medium.com/serverlessguru/dockerizing-a-node-js-web-app-98799ca93cb6" },
-      { name: "Artículos 1", link:"https://medium.com/serverlessguru/dockerizing-a-node-js-web-app-98799ca93cb6" },
-    ],
+      videos: [],
+      foros: [],
+      articulos: [],
   
     }
   },
@@ -305,6 +198,14 @@ export default {
 
   methods: {
     ...mapMutations(['setRutaRegreso', 'changeTypeFilter']),
+
+    ...mapActions(['busquedaQueryPersonalizada']),
+
+    async queryPersonalizada(id){
+      console.log(id);
+      await this.busquedaQueryPersonalizada(id);
+      this.$router.replace({name: "Video"});
+    },
     
     filtrarPorVideos(){
       this.changeTypeFilter('Videos');

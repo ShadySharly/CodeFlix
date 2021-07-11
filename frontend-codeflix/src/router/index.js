@@ -34,7 +34,7 @@ const routes = [
     component: SearchVideos
   },
   {
-    path: '/video',
+    path: '/search/video',
     name: 'Video',
     component: Video
   },
