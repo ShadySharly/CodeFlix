@@ -4,6 +4,8 @@ import Home from '../views/Home.vue'
 import Search from '../views/Search.vue'
 import SearchVideos from '../views/SearchVideos'
 import SearchForos from '../views/SearchForos'
+import Video from '../views/Video'
+import Foro from '../views/Foro'
 
 Vue.use(VueRouter)
 
@@ -30,6 +32,16 @@ const routes = [
     path: '/search/videos',
     name: 'SearchVideos',
     component: SearchVideos
+  },
+  {
+    path: '/video',
+    name: 'Video',
+    component: Video
+  },
+  {
+    path: '/foro',
+    name: 'Foro',
+    component: Foro
   },
   {
     path: '/search/foros',
