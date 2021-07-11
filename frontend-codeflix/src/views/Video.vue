@@ -4,7 +4,6 @@
         <!-- Fila pa buscar, filtrar y volver -->
         <barra-busqueda></barra-busqueda>
     </b-container>
-    <b-button @click="changeUrlVideo(video.link_video)">getVid id</b-button>
 
     <b-container class="container-general my-3 mx-auto px-3 py-2">
         <b-row>
