@@ -9,6 +9,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    query: '',
     videos: {
 
     },
@@ -65,12 +66,17 @@ export default new Vuex.Store({
 
     setQueryPersonalizada: (state, queryResult)=>{
       state.queryPersonalizada = queryResult;
-    } 
+    },
+
+    setQuery: (state, q) => {
+      state.query = q;
+    }
   },
   
   actions: {
     async busqueda({commit}, query){
       let result = null;
+      commit('setQuery', query)
       const url = "http://localhost:3000/data";
       // se consume el backend
       // seba y franco del futuro --> ***** añadir la query a la url ******
@@ -116,6 +122,10 @@ export default new Vuex.Store({
 
     getQueryPersonalizada: state => {
       return state.queryPersonalizada;
+    },
+
+    getQuery: state => {
+      return state.query;
     }
   },
 

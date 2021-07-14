@@ -10,15 +10,20 @@
     </b-col>
     <!-- Barra busqueda -->
     <b-col class="col-12 col-sm-12 col-md-8 col-lg-8 mt-sm-3 mt-3">
-        <b-form-input placeholder="¿Qué estas buscando?">
+        <b-form-input placeholder="¿Qué estas buscando?" @input="showDismissibleAlert=false" v-model="query">
         </b-form-input>
     </b-col>
     <!-- Botón buscar -->
     <b-col class="col-6 col-sm-6 col-md-2 col-lg-2 mt-sm-3 mt-3">
-        <b-button class="btn-home-buscar" :to="{name:'Search'}">
+        <b-button v-if="this.query != '' " class="btn-home-buscar" @click="buscar(query)">
+            
             Buscar
         </b-button>
+        <b-button v-else class="btn-home-buscar" @click="showDismissibleAlert=true">Buscar</b-button>
     </b-col>
+    <b-alert class="mt-3 mb-0" v-model="showDismissibleAlert" variant="danger" dismissible>
+            Debes escribir una query
+          </b-alert>
     <b-col class="d-block d-sm-block d-md-block d-lg-none d-xl-none mt-3 col-6">
         <sidebar-filter></sidebar-filter>
     </b-col>
@@ -28,12 +33,13 @@
 
 <script>
 import SidebarFilter from '../components/SidebarFilter.vue'
-import {mapGetters, mapMutations} from 'vuex'
+import {mapGetters, mapMutations, mapActions} from 'vuex'
 
 export default {
     data(){
         return {
-
+            query: '',
+            showDismissibleAlert: false,
         }
     },
 
@@ -46,13 +52,20 @@ export default {
 
     methods:{
         ...mapGetters(['getRutaRegreso']),
-        ...mapMutations(['changeTypeFilter']),
+        ...mapMutations(['changeTypeFilter', 'setRutaRegreso']),
+        ...mapActions(['busqueda']),
 
         volver(){
             this.changeTypeFilter('volver');
             let componente = this.getRutaRegreso();
             this.$router.replace({name: componente})
-        }
+        },
+        // Funcion que realiza la busqueda y llama a la vista de resultados
+      async buscar(query){
+        await this.busqueda(query);
+        this.setRutaRegreso('Home')
+        this.$router.replace({name: 'Search'});
+      }
     }
 }
 </script>

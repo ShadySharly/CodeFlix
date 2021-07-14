@@ -1,32 +1,34 @@
 <template>
 <div>
-    <b-container class="my-2">
+    <b-container class="my-3">
         <!-- Fila pa buscar, filtrar y volver -->
         <barra-busqueda></barra-busqueda>
     </b-container>
 
-    <b-container class="container-general my-3 mx-auto px-3 py-2">
-        <b-row>
+    <b-container class="container-general my-4 mx-auto px-3 py-2">
+        <b-row class="mt-2">
             <b-col class="col-lg-8 col-12">
                 <b-card no-body class="p-0">
-                    <b-embed type="iframe" aspect="16by9" :src="video.link_video" allowfullscreen></b-embed>
+                    <b-embed type="iframe" aspect="16by9" :src="video.url" allowfullscreen></b-embed>
                     <b-card-body>
                         <b-card-title>
                             {{video.titulo}}
                         </b-card-title>
                         <div class="d-flex justify-content-start align-items-center">
-                            <b-avatar variant="info" :src="video.url_imagen_autor" class="mr-3"></b-avatar>
-                            <span class="mr-auto">{{video.autor}}</span>
+                            <b-avatar variant="info" :src="video.thumbnailAutor" class="mr-3"></b-avatar>
+                            <span class="mr-2" style="min-width:80px">{{video.autor}}</span>
                             <div class="flex-grow-1 mx-2">
-                                <b-badge v-for="tag in video.tags" :key="tag" pill variant="success" class="mx-1 tag">{{tag.nombre}}</b-badge>
+                                <b-badge v-for="tag in video.tags" :key="tag" pill variant="success" class="mx-1 tag">{{tag}}</b-badge>
                             </div>
                         </div>
-                        <div>
-
-                        </div>
+                        <div class="mx-2 my-2 px-1" style="font-size:15px;color:grey;">
+                      <span class="mx-1">{{video.fecha}}</span>
+                      |
+                      <span class="mx-1">{{video.duracion}} min</span>
+                    </div>
                         <hr>
                         <div class="px-2">
-                            <b-card-text>
+                            <b-card-text class="">
                                 {{video.descripcion}}
                             </b-card-text>
                         </div>
@@ -66,17 +68,17 @@
 
         </b-row>
 
-        <b-row>
+        <b-row class="my-3">
             <b-col class="col-12">
                 <b-card class="card-foro">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between mb-3">
                         <b-img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Stack_Overflow_logo.svg/1280px-Stack_Overflow_logo.svg.png" style="width:20%"></b-img>
-                        <b-button pill style="background-color:darkorange;color:black;" class="my-1">
+                        <b-button pill style="background-color:darkorange;color:black;" class="my-1" :href="foro.pregunta.link">
                             Ir al sitio web
                             <b-icon icon="arrow-up-right"></b-icon>
                         </b-button>
                     </div>
-                    <b-row>
+                    <b-row class="my-2">
                         <b-col class="col-lg-1 col-1" align-self="center">
                             <div class="d-flex flex-column align-items-center">
                                 <div>
@@ -86,7 +88,7 @@
                                 </div>
                                 <div>
                                     <h4>
-                                        <span class="mx-2">43</span>
+                                        <span class="mx-2">{{foro.pregunta.puntaje}}</span>
                                     </h4>
                                 </div>
                                 <div>
@@ -99,18 +101,26 @@
                         <b-col class="col-lg-11 col-11">
                             <b-card>
                                 <b-card-title style="font-weight:bold">
-                                    Titulo de la Pregunta
+                                    {{foro.pregunta.titulo}}
                                 </b-card-title>
-                                <div class="my-2">
-                                    <span class="mr-2" style="font-size:14px; color:grey">Preguntado:</span>
-                                    <span style="font-size:14px; color:black">18/02/1998</span>
+                                <div class="d-flex my-2">
+                                    <div class="mr-4">
+                                        <span class="mr-2" style="font-size:14px; color:grey">Preguntado:</span>
+                                    <span style="font-size:14px; color:black">{{foro.pregunta.fecha}}</span>
+                                    </div>
+                                    <div>
+                                        <span class="mr-2" style="font-size:14px; color:grey">Puntaje:</span>
+                                    <span style="font-size:14px; color:black">{{foro.pregunta.puntaje}}</span>
+                                    </div>
                                 </div>
                                 <b-card-text>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro ullam consequuntur vitae facere rem nobis eos. Neque, eligendi officia nostrum aperiam numquam totam quia, iure facere quae debitis, amet similique.
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero quas consequuntur repellat aut magnam incidunt accusamus, ea sequi voluptas impedit optio dolorem eos a mollitia ut atque, enim suscipit corrupti.
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint vel, quidem nihil sit commodi explicabo, animi repellat ipsa doloribus fuga repellendus ad beatae, voluptatum vero. Dolor illo ipsa quod labore!
-
+                                    <div v-html="foro.pregunta.contenido">
+                                    </div>
                                 </b-card-text>
+                                <div>
+                                    <b-avatar variant="info" :src="foro.pregunta.imagenAutor" class="mr-3 ml-lg-0"></b-avatar>
+                            <span class="mr-auto">{{foro.pregunta.autor}}</span>
+                                </div>
                             </b-card>
                         </b-col>
                     </b-row>
@@ -125,7 +135,7 @@
                                 </div>
                                 <div>
                                     <h4>
-                                        <span class="mx-2">43</span>
+                                        <span class="mx-2">{{foro.respuesta.puntaje}}</span>
                                     </h4>
                                 </div>
                                 <div>
@@ -138,18 +148,26 @@
                         <b-col class="col-lg-11 col-11">
                             <b-card>
                                 <b-card-title style="font-weight: bold">
-                                    Respuestas
+                                    Top Respuesta
                                 </b-card-title>
-                                <div class="my-2">
-                                    <span class="mr-2" style="font-size:14px; color:grey">Respondido:</span>
-                                    <span style="font-size:14px; color:black">11/12/2005</span>
+                                <div class="d-flex my-2">
+                                    <div class="mr-4">
+                                        <span class="mr-2" style="font-size:14px; color:grey">Preguntado:</span>
+                                    <span style="font-size:14px; color:black">{{foro.respuesta.fecha}}</span>
+                                    </div>
+                                    <div>
+                                        <span class="mr-2" style="font-size:14px; color:grey">Puntaje:</span>
+                                    <span style="font-size:14px; color:black">{{foro.respuesta.puntaje}}</span>
+                                    </div>
                                 </div>
-                                <b-card-text>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro ullam consequuntur vitae facere rem nobis eos. Neque, eligendi officia nostrum aperiam numquam totam quia, iure facere quae debitis, amet similique.
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero quas consequuntur repellat aut magnam incidunt accusamus, ea sequi voluptas impedit optio dolorem eos a mollitia ut atque, enim suscipit corrupti.
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint vel, quidem nihil sit commodi explicabo, animi repellat ipsa doloribus fuga repellendus ad beatae, voluptatum vero. Dolor illo ipsa quod labore!
-
+                                <b-card-text >
+                                  <div v-html="foro.respuesta.contenido">
+                                    </div>
                                 </b-card-text>
+                                <div>
+                                    <b-avatar variant="info" :src="foro.respuesta.imagenAutor" class="mr-3 ml-lg-0"></b-avatar>
+                            <span class="mr-auto">{{foro.respuesta.autor}}</span>
+                                </div>
                             </b-card>
                         </b-col>
                     </b-row>
@@ -191,19 +209,18 @@ export default {
         this.video = this.getQueryPersonalizada.video;
         this.foro = this.getQueryPersonalizada.foro;
         this.articulo = this.getQueryPersonalizada.articulo;
+        document.getElementById('txx').innerHTML = this.foro.pregunta.contenido
         
     },
 
     methods: {
-        
     }
 }
 </script>
 
 <style scoped>
 .container-general {
-    background: rgb(226, 226, 226);
-    background: linear-gradient(180deg, rgba(226, 226, 226, 1) 0%, rgba(255, 255, 255, 1) 100%);
+
     width: 100%;
 }
 
@@ -216,4 +233,6 @@ export default {
     background: rgb(255, 196, 99);
     background: linear-gradient(180deg, rgba(255, 196, 99, 0.7245098723082983) 0%, rgba(255, 233, 198, 0.7329132336528361) 100%);
 }
+
+
 </style>
