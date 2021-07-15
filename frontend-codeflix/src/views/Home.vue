@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="mt-lg-5">
     <b-container class="container-general mx-auto mt-3 p-5">
        <b-row class="pt-0 pb-3 justify-content-center">
         <b-col class="col-md-3 col-7 pt-0" >

@@ -1,6 +1,6 @@
 <template>
-<div class="search mt-5">
-    <b-container>
+<div class="search my-3 mb-5">
+    <b-container >
         <!-- Fila pa buscar, filtrar y volver -->
         <barra-busqueda></barra-busqueda>
 

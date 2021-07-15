@@ -26,7 +26,7 @@
                     <!-- Card con los vídeos -->
 
                     <b-card :title=video.name :img-src=video.thumbnail img-alt="Image" img-top tag="article" class="item crop" no-body>
-                        <a href="#" v-bind:class="queryPersonalizada" @click="queryPersonalizada(video.id)" class="stretched-link"></a>
+                        <a href="#" v-bind:class="queryPersonalizada" @click="queryPersonalizada(video.id, 'Video')" class="stretched-link"></a>
 
                         <b-card-title class="mt-md-2 mb-0 ml-md-2 p-2">{{video.titulo}}</b-card-title>
                         <b-card-body class="p-lg-2">
@@ -73,9 +73,9 @@
 
                     <!-- Card con los foros -->
                 <b-col v-for="(foro, index) in foros" :key="index">
+                  <b-card img-alt="Image" img-top class="item crop" no-body>
 
-                  <b-card img-alt="Image" img-top tag="foro" class="item crop" no-body>
-                        <a href="#" v-bind:class="queryPersonalizada" @click="queryPersonalizada(1)" class="stretched-link"></a>
+                        <a href="#" v-bind:class="queryPersonalizada" @click="queryPersonalizada(foro.pregunta.id, 'Foro')" class="stretched-link"></a>
                         <b-card-img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Stack_Overflow_logo.svg/1280px-Stack_Overflow_logo.svg.png" height="40px" width="100px" alt="Image" top class="pr-4 mr-5 mb-2 m-2">
                             </b-card-img>
 
@@ -89,11 +89,11 @@
                             |
                             <span class="mx-1">{{foro.pregunta.puntaje}} votos</span>
                         </div>
-                        <template #footer>
+                        <b-card-footer>
                             <b-badge v-for="(tag, indice) in foro.pregunta.tags" :key=indice pill variant="warning" class="mr-2" style="border-radius: 20px; color:black; text-decoration: none" href="/">
                                 {{tag}}
                             </b-badge>
-                        </template>
+                        </b-card-footer>
                     </b-card>
 
 
@@ -110,7 +110,12 @@
     <!--Mostrando articulos-->
     <b-container class=" m-2 p-3">
         <b-row>
-            <h4>Artículos y Tutoriales</h4>
+            <div class="m-0 p-0">
+                <b-button variant="link" class="link" @click="filtrarPorArticulos()">
+                    Articulos
+                    <b-icon font-scale="0.9" icon="arrow-up-right-circle"></b-icon>
+                </b-button>
+            </div>
         </b-row>
         <b-row class="no-gutters">
             <b-col cols="1" class="vertical-align">
@@ -189,11 +194,12 @@ export default {
 
         ...mapActions(['busquedaQueryPersonalizada']),
 
-        async queryPersonalizada(id) {
+        async queryPersonalizada(id, ruta) {
             console.log(id);
+            this.setRutaRegreso('Search');
             await this.busquedaQueryPersonalizada(id);
             this.$router.replace({
-                name: "Video"
+                name: ruta
             });
         },
 
@@ -210,6 +216,11 @@ export default {
             this.$router.replace({
                 name: 'SearchForos'
             })
+        },
+
+        filtrarPorArticulos(){
+            this.setRutaRegreso('Search');
+            this.$router.replace({name:'SearchArticulos'})
         },
 
         scroll_left1() {
@@ -247,6 +258,7 @@ export default {
 .background-panel {
     height: 100%;
     width: 100%;
+        border: 1px solid #ddd;
 }
 
 /* Bloque de videos */

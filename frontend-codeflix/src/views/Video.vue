@@ -18,7 +18,11 @@
                             <b-avatar variant="info" :src="video.thumbnailAutor" class="mr-3"></b-avatar>
                             <span class="mr-2" style="min-width:80px">{{video.autor}}</span>
                             <div class="flex-grow-1 mx-2">
-                                <b-badge v-for="tag in video.tags" :key="tag" pill variant="success" class="mx-1 tag">{{tag}}</b-badge>
+                                <b-badge v-for="tag in video.tags" :key="tag" pill variant="success" class="mx-1 tag">
+                                    <a href="#" v-bind:class="buscarTag" @click="buscarTag(tag)">
+                                        {{tag}}
+                                    </a>
+                                </b-badge>
                             </div>
                         </div>
                         <div class="mx-2 my-2 px-1" style="font-size:15px;color:grey;">
@@ -53,7 +57,11 @@
 
                     <h5 style="font-weight: bold">Keywords</h5>
                     <div>
-                        <b-badge class="tag mx-1 my-1" v-for="i in 10" :key="i" variant="warning">tag_articulo</b-badge>
+                        <b-badge class="tag mx-1 my-1" v-for="i in 10" :key="i" variant="warning">
+                            <a href="#" v-bind:class="buscarTag" @click="buscarTag(tag)">
+                            tag_articulo
+                            </a>
+                        </b-badge>
                     </div>
                     <template #footer>
                         <div class="d-flex my-1 justify-content-end">
@@ -182,7 +190,7 @@
 
 <script>
 import BarraBusqueda from '../components/BarraBusqueda.vue'
-import {
+import {mapActions, mapMutations,
     mapGetters
 } from 'vuex'
 
@@ -209,11 +217,16 @@ export default {
         this.video = this.getQueryPersonalizada.video;
         this.foro = this.getQueryPersonalizada.foro;
         this.articulo = this.getQueryPersonalizada.articulo;
-        document.getElementById('txx').innerHTML = this.foro.pregunta.contenido
-        
     },
 
     methods: {
+              ...mapActions(['busqueda']),
+      ...mapMutations(['setRutaRegreso']),
+        async buscarTag(query){
+            await this.busqueda(query);
+            this.setRutaRegreso('Home')
+            this.$router.replace({name: 'Search'});
+        }
     }
 }
 </script>
@@ -226,6 +239,11 @@ export default {
 
 .tag {
     border-radius: 13px;
+    color: black;
+}
+
+.tag a{
+    text-decoration: none;
     color: black;
 }
 

@@ -146,9 +146,9 @@ export default {
                     url: "SearchForos"
                 },
                 {
-                    type: 'Tutoriales',
+                    type: 'Articulos',
                     number: 0,
-                    url: "Home"
+                    url: "SearchArticulos"
                 },
             ],
 
@@ -183,6 +183,16 @@ export default {
 
         }
     },
+    computed: {
+        ...mapGetters(['getVideos', 'getForos', 'getArticulos'])
+    },
+
+    mounted() {
+        this.formats[0].number = (this.getVideos).length;
+        this.formats[1].number = (this.getForos).length;
+        this.formats[2].number = (this.getArticulos).length;
+    },
+
     methods: {
         ...mapMutations(['setRutaRegreso', 'changeTypeFilter']),
         ...mapGetters(['getTypeFilter']),
