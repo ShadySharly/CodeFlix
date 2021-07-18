@@ -19,7 +19,8 @@ def search_video():
 def search_stack():
     request_body = request.args.get('text')
     print(request_body)
-    res = es.search(index="stackdocs", body={"query": {"match": {'titulo':request_body}}})
+    
+    res = es.search(index="stackdocs", body={"query": {"match": {'pregunta.titulo':request_body}}})
     return res
 
 @app.route("/articles",methods=["GET","ṔOST"])
