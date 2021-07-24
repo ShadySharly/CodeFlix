@@ -22,7 +22,7 @@
                 </b-button>
             </b-col>
             <b-col class="wrapper1" cols="10">
-                <b-col v-for="(video, index) in videos" v-bind:title="video.titulo" :key="index" > 
+                <b-col v-for="(video, index) in getVideos" v-bind:title="video.titulo" :key="index" > 
                     <!-- Card con los vídeos -->
 
                     <b-card :title=video.name :img-src=video.thumbnail img-alt="Image" img-top tag="article" class="item crop" no-body>
@@ -72,7 +72,7 @@
             <b-col class="wrapper2" cols="10">
 
                     <!-- Card con los foros -->
-                <b-col v-for="(foro, index) in foros" :key="index">
+                <b-col v-for="(foro, index) in getForos" :key="index">
                   <b-card img-alt="Image" img-top class="item crop" no-body>
 
                         <a href="#" v-bind:class="queryPersonalizada" @click="queryPersonalizada(foro.pregunta.id, 'Foro')" class="stretched-link"></a>
@@ -124,7 +124,7 @@
                 </b-button>
             </b-col>
             <b-col class="wrapper3" cols="10">
-                <b-col v-for="articulo in articulos" v-bind:title="articulo.name" :key="articulo.id">
+                <b-col v-for="articulo in getArticulos" v-bind:title="articulo.name" :key="articulo.id">
                     <!-- Card con los artículos y foros -->
                     <b-card tag="article" class="mb-2 item">
 

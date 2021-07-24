@@ -49,7 +49,7 @@
                 <!-- Desplegable duración videos -->
                 <b-collapse id="my-duration" class="p-3">
                     <div>
-                        <b-form-input id="range-2" v-model="valueDuracion" type="range" :min="duracionMin" :max="duracionMax" step="1"></b-form-input>
+                        <b-form-input id="range-2" v-model="valueDuracion" type="range" :min="duracionMin" :max="duracionMax" step="1"  @change="filterDuration" ></b-form-input>
                         <div class="mt-2">Tiempo: {{ valueDuracion }} Minutos</div>
                     </div>
                 </b-collapse>
@@ -75,7 +75,7 @@
             <b-collapse id="my-lenguaje" class="ml-4 ">
                 <div>
                     <b-form-group label="" v-slot="{ ariaDescribedby }">
-                        <b-form-checkbox-group v-model="selectedLenguaje" :options="optionsLenguje" :aria-describedby="ariaDescribedby" name="flavour-2a" stacked></b-form-checkbox-group>
+                        <b-form-checkbox-group v-model="selectedLenguaje" :options="optionsLenguje" :aria-describedby="ariaDescribedby" name="flavour-2a" stacked @change="filterLanguage($event)"></b-form-checkbox-group>
                     </b-form-group>
                 </div>
             </b-collapse>
@@ -100,22 +100,28 @@
             <b-collapse id="my-date" class="ml-3 p-1">
                 <div>
                     <label for="example-input">Desde</label>
-                    <b-input-group class="mb-3">
-                        <b-form-input id="example-input" v-model="valueDateDesde" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
+                    <b-input-group class="mb-3" >
+                        <b-form-input id="example-input" v-model="valueDateDesde" type="text" placeholder="YYYY-MM-DD" autocomplete="off" @input="filterDate"></b-form-input>
                         <b-input-group-append>
-                            <b-form-datepicker v-model="valueDateDesde" button-only right locale="en-US" aria-controls="example-input" @context="onContextDatePicker1"></b-form-datepicker>
+                            <b-form-datepicker v-model="valueDateDesde" button-only right locale="en-US" aria-controls="example-input" @context="onContextDatePicker1" @input="filterDate"></b-form-datepicker>
                         </b-input-group-append>
                     </b-input-group>
                 </div>
 
                 <div>
                     <label for="example-input">Hasta</label>
-                    <b-input-group class="mb-3">
-                        <b-form-input id="example-input" v-model="valueDateHasta" type="text" placeholder="YYYY-MM-DD" autocomplete="off"></b-form-input>
+                    <b-input-group class="mb-3" >
+                        <b-form-input id="example-input" v-model="valueDateHasta" type="text" placeholder="YYYY-MM-DD" autocomplete="off" @input="filterDate"></b-form-input>
                         <b-input-group-append>
-                            <b-form-datepicker v-model="valueDateHasta" button-only right locale="en-US" aria-controls="example-input" @context="onContextDatePicker2"></b-form-datepicker>
+                            <b-form-datepicker v-model="valueDateHasta" button-only right locale="en-US" aria-controls="example-input" @context="onContextDatePicker2" @input="filterDate"></b-form-datepicker>
                         </b-input-group-append>
                     </b-input-group>
+                    <b-button v-if="desactivarBotonFecha" disabled>Aplicar Fecha</b-button>
+                    <b-button v-else @click="aplicarDateFilter">Aplicar Fecha</b-button>
+                    
+                </div>
+                <div class="my-3">
+                    <b-button v-if="resetFilterButton" @click="quitarDateFilter">Resetear Filtro</b-button>
                 </div>
             </b-collapse>
 
@@ -155,21 +161,21 @@ export default {
             // Data del boton duracion
             duracionMin: '1',
             duracionMax: '60',
-            valueDuracion: '0',
+            valueDuracion: '60',
 
             // Data del botón Lenguaje
             selectedLenguaje: [], // Must be an array reference!
             optionsLenguje: [{
                     text: 'Python',
-                    value: 'python'
+                    value: 'Python'
                 },
                 {
                     text: 'C',
-                    value: 'c'
+                    value: 'C'
                 },
                 {
                     text: 'Java',
-                    value: 'java'
+                    value: 'Java'
                 }
             ],
 
@@ -179,7 +185,10 @@ export default {
             formattedDesde: '',
             formattedHasta: '',
             selectedDesde: '',
-            selectedHasta: ''
+            selectedHasta: '',
+            desactivarBotonFecha: true,
+            resetFilterButton: false,
+            fechaFiltro: '',
 
         }
     },
@@ -194,7 +203,7 @@ export default {
     },
 
     methods: {
-        ...mapMutations(['setRutaRegreso', 'changeTypeFilter']),
+        ...mapMutations(['setRutaRegreso', 'changeTypeFilter', 'setDurationValueFilter', 'setLanguageFilter', 'setDateFilter', 'resetDateFilter']),
         ...mapGetters(['getTypeFilter']),
 
         onContextDatePicker1(ctx) {
@@ -219,6 +228,40 @@ export default {
             });
 
         },
+
+        filterDuration(){
+            console.log(this.valueDuracion);
+            this.setDurationValueFilter(this.valueDuracion)
+        },
+
+        filterLanguage(event){
+            console.log(this.selectedLenguaje)
+            this.setLanguageFilter(this.selectedLenguaje)
+        },
+
+        filterDate(){
+            console.log(this.valueDateDesde)
+            console.log(this.valueDateHasta)
+            if(this.valueDateDesde != '' && this.valueDateHasta != '' && this.valueDateDesde <= this.valueDateHasta){
+                this.desactivarBotonFecha = false;
+                this.fechaFiltro = {'desde': this.valueDateDesde, 'hasta': this.valueDateHasta}
+            }
+            else{
+                this.desactivarBotonFecha = true;
+            }
+            
+        },
+
+        aplicarDateFilter(){
+            this.resetFilterButton = true
+            this.setDateFilter(this.fechaFiltro)
+        },
+
+        quitarDateFilter(){
+            this.resetFilterButton = false;
+            this.selectedLenguaje = []
+            this.resetDateFilter()
+        }
     }
 }
 </script>

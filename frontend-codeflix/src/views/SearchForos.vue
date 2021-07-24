@@ -55,7 +55,7 @@
 <script>
 import VerticalFilter from '../components/VerticalFilter.vue'
 import BarraBusqueda from '../components/BarraBusqueda.vue'
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
     data() {
@@ -76,6 +76,14 @@ export default {
     mounted(){
         this.foros = this.getForos;
     },
+    methods:{
+        ...mapActions(['busquedaQueryPersonalizada']),
+        async queryPersonalizada(id){
+            console.log(id);
+            await this.busquedaQueryPersonalizada(id);
+            this.$router.replace({name: "Foro"});
+        }
+    }
 }
 </script>
 

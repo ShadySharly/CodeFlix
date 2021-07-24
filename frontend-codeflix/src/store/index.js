@@ -10,13 +10,24 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     query: '',
+    durationValueFilter: 60,
     videos: {
 
     },
+    videosBackup: {
+
+    },
+
     foros:{
 
     },
+    forosBackup:{
+
+    },
     articulos:{
+
+    },
+    articulosBackup:{
 
     },
 
@@ -32,9 +43,12 @@ export default new Vuex.Store({
     setBusqueda(state, data){
       //Se guarda la data en las variables del state
       state.videos = data.videos;
+      state.videosBackup = data.videos;
       state.foros = data.foros;
+      state.forosBackup = data.foros;
       state.articulos = data.articulos;
-      console.log(state.videos)
+      state.articulosBackup = data.articulos;
+      //console.log(state.videos)
     },
 
     // esta es una funcion de flecha (aun no sabemos la diferencia pero funciona)
@@ -70,6 +84,71 @@ export default new Vuex.Store({
 
     setQuery: (state, q) => {
       state.query = q;
+    },
+
+    setDurationValueFilter: (state,value) => {
+      state.videos = state.videosBackup;
+      state.videos = state.videos.filter(function (el) {
+        return el.duracion <= value; // Changed this so a home would match
+      });
+      //console.log(state.videos[0]["duracion"]);
+    },
+
+    setLanguageFilter: (state, langList) => {
+      state.videos = state.videosBackup;
+      state.foros = state.forosBackup;
+      state.articulos = state.articulosBackup;
+      //console.log(state.videosBackup)
+      if (langList.length == 0){
+        console.log("se quita el filtro")
+      }
+      else{
+        var videos = [];
+        var foros = [];
+        var articulos = [];
+        for(var j=0; j<langList.length; j++){
+          for(var i=0; i<state.videosBackup.length; i++){
+            if(state.videosBackup[i]["titulo"].indexOf(langList[j])!= -1) {
+              videos.push(state.videosBackup[i])
+            }
+          };// end for Videos
+          state.videos = videos;
+          for(var i=0; i<state.forosBackup.length; i++){
+            if(state.forosBackup[i]["pregunta"]["titulo"].indexOf(langList[j])!= -1) {
+              foros.push(state.forosBackup[i])
+            }
+          }; //end for Foros
+          state.foros = foros;
+          for(var i=0; i<state.articulosBackup.length; i++){
+            if(state.articulosBackup[i]["name"].indexOf(langList[j])!= -1) {
+              articulos.push(state.articulosBackup[i])
+            }
+          }; //end for articulos
+          state.articulos = articulos;
+        } //end of for lanList
+      }
+    },
+
+    setDateFilter: (state, fecha) =>{
+      var videos = state.videos;
+      var foros = state.foros;
+      var articulos = [];
+      var ed = new Date(fecha.desde).getTime();
+      var sd = new Date(fecha.hasta).getTime();
+
+      state.videos = videos.filter(video => {var time = new Date(video.fecha).getTime();
+                             return (ed <= time && time <= sd);
+                            });
+      
+      state.foros = foros.filter(foro => {var time = new Date(foro.pregunta.fecha).getTime();
+        return (ed <= time && time <= sd);
+        });
+    },
+
+    resetDateFilter: (state) =>{
+      state.videos = state.videosBackup;
+      state.foros = state.forosBackup;
+      state.articulos = state.articulosBackup;
     }
   },
   
@@ -126,6 +205,10 @@ export default new Vuex.Store({
 
     getQuery: state => {
       return state.query;
+    },
+
+    getDurationValueFilter: state => {
+      return state.durationValueFilter;
     }
   },
 

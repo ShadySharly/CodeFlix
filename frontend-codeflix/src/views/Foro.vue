@@ -11,7 +11,7 @@
                 <b-card class="card-foro">
                     <div class="d-flex justify-content-between mb-3">
                         <b-img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Stack_Overflow_logo.svg/1280px-Stack_Overflow_logo.svg.png" style="width:20%"></b-img>
-                        <b-button pill style="background-color:darkorange;color:black;" class="my-1" :href="foro.pregunta.link">
+                        <b-button pill style="background-color:darkorange;color:black;" class="my-1" :href="foro.pregunta.link" target="_blank">
                             Ir al sitio web
                             <b-icon icon="arrow-up-right"></b-icon>
                         </b-button>

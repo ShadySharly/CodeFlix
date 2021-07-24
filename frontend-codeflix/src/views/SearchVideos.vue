@@ -20,7 +20,7 @@
                         </h3>
                     </div>
                     <b-row>
-                        <b-col class="col-lg-4 col-md-6 col-12 col-sm-12 mb-md-3" v-for="(video, index) in videos" :key="index">
+                        <b-col class="col-lg-4 col-md-6 col-12 col-sm-12 mb-md-3" v-for="(video, index) in getVideos" :key="index">
                                 <!-- Card con los vídeos -->
                                 <b-card :title=video.name :img-src=video.thumbnail img-alt="Image" img-top tag="article" class="item crop" no-body>
                                     <a href="#" v-bind:class="queryPersonalizada" @click="queryPersonalizada(video.id)" class="stretched-link"></a>
