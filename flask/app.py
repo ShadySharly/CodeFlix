@@ -1,8 +1,10 @@
 from flask import Flask,request
 from elasticsearch import Elasticsearch
 import json
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 es = Elasticsearch()
 
 @app.route("/")
@@ -14,8 +16,13 @@ def search_video():
     request_body = request.args.get('text')
     print(request_body)
     res = es.search(index="youtube", body={"query": {"match": {'titulo':request_body}}})
-    hits = res['hits']
-    return hits
+    hits = res['hits']['hits']
+    sources_out = []
+    for hit in hits:
+        source = hit['_source']
+        sources_out.append(source)
+        
+    return json.dumps(sources_out)
 
 @app.route("/stack",methods=["GET","ṔOST"])
 def search_stack():
@@ -23,25 +30,36 @@ def search_stack():
     print(request_body)
     
     res = es.search(index="stackdocs", body={"query": {"match": {'pregunta.titulo':request_body}}})
-    return res
+    hits = res['hits']['hits']
+    sources_out = []
+    for hit in hits:
+        source = hit['_source']
+        sources_out.append(source)
+        
+    return json.dumps(sources_out)
 
 @app.route("/articles",methods=["GET","ṔOST"])
 def search_articles():
     request_body = request.args.get('text')
     print(request_body)
     res = es.search(index="articles", body={"query": {"match": {'titulo':request_body}}})
-    return res
+    hits = res['hits']['hits']
+    sources_out = []
+    for hit in hits:
+        source = hit['_source']
+        sources_out.append(source)
+        
+    return json.dumps(sources_out)
 
 @app.route("/video/others",methods=["GET","ṔOST"])
 def search_video_others():
     request_body = request.args.get('id')
     print(request_body)
     
-    videos = es.search(index="youtube", body={"query": {"match": {'_id':request_body}}})
-    top_video = videos['hits']['hits'][0]
-    #return top_video
+    video = es.search(index="youtube", body={"query": {"match": {'id':request_body}}})
+   
     
-    video_title = top_video['_source']['titulo']
+    video_title = video['hits']['hits'][0]['_source']['titulo']
 
     stackdocs = es.search(index="stackdocs", body={"query": {"match": {'pregunta.titulo':video_title}}}) 
     if len(stackdocs['hits']['hits'][0])!=0:
@@ -61,9 +79,9 @@ def search_video_others():
     #return top_article
     
     final_result = {
-        "video": top_video,
-        "articulo": top_article,
-        "foro": top_forum
+        "video": video['hits']['hits'][0]['_source'],
+        "articulo": top_article['_source'],
+        "foro": top_forum['_source']
     }
     json_dump = json.dumps(final_result)
     return json_dump
@@ -74,7 +92,7 @@ def search_forum_others():
     request_body = request.args.get('id')
     print(request_body)
     
-    forums = es.search(index="stackdocs", body={"query": {"match": {'_id':request_body}}})
+    forums = es.search(index="stackdocs", body={"query": {"match": {'pregunta.id':request_body}}})
     top_forum = forums['hits']['hits'][0]
     forum_title = top_forum['_source']['pregunta']['titulo']
 
@@ -98,9 +116,9 @@ def search_forum_others():
     #return top_article
     
     final_result = {
-        "video": top_video,
-        "articulo": top_article,
-        "foro": top_forum
+        "video": top_video['_source'],
+        "articulo": top_article['_source'],
+        "foro": top_forum['_source']
     }
     json_dump = json.dumps(final_result)
     return json_dump

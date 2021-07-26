@@ -159,8 +159,8 @@ export default new Vuex.Store({
       let resultArticulos = null;
       commit('setQuery', query)
       const url1 = "http://localhost:5000/video";
-      const url2 = "http://localhost:5000/video";
-      const url3 = "http://localhost:5000/video";
+      const url2 = "http://localhost:5000/stack";
+      const url3 = "http://localhost:5000/articles";
       // se consume el backend
       // seba y franco del futuro --> ***** añadir la query a la url ******
       await axios.get(url1, {params: {text: query}}).then((response) => {
@@ -168,12 +168,13 @@ export default new Vuex.Store({
       });
       await axios.get(url2, {params: {text: query}}).then((response) => {
         resultForos = response.data;
+        console.log(resultForos)
       });
       await axios.get(url3, {params: {text: query}}).then((response) => {
         resultArticulos = response.data;
       });
 
-      var result = {videos: resultVideos, foros: resultVideos, articulos: resultArticulos};
+      var result = {videos: resultVideos, foros: resultForos, articulos: resultArticulos};
       // Se llama a la función setBusqueda que está en Mutations
       commit('setBusqueda', result);
 

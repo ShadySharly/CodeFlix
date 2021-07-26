@@ -183,6 +183,7 @@ export default {
         this.videos = this.getVideos;
         this.foros = this.getForos;
         this.articulos = this.getArticulos;
+        //console.log(this.foros)
     },
 
     created() {
