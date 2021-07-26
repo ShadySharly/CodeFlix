@@ -78,7 +78,8 @@ export default {
         ...mapActions(['busquedaQueryPersonalizada']),
         async queryPersonalizada(id){
             console.log(id);
-            await this.busquedaQueryPersonalizada(id);
+            var param = {id: id, tipo: "video"}
+            await this.busquedaQueryPersonalizada(param);
             this.$router.replace({name: "Video"});
         },
     }

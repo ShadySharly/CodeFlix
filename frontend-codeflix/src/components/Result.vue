@@ -197,7 +197,14 @@ export default {
         async queryPersonalizada(id, ruta) {
             console.log(id);
             this.setRutaRegreso('Search');
-            await this.busquedaQueryPersonalizada(id);
+            var param = {};
+            if(ruta == "Video"){
+                param = {id: id, tipo: "video"}
+            }
+            else{
+                param = {id: id, tipo: "forum"}
+            }
+            await this.busquedaQueryPersonalizada(param);
             this.$router.replace({
                 name: ruta
             });

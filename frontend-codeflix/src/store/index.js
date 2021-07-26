@@ -154,24 +154,36 @@ export default new Vuex.Store({
   
   actions: {
     async busqueda({commit}, query){
-      let result = null;
+      let resultVideos = null;
+      let resultForos = null;
+      let resultArticulos = null;
       commit('setQuery', query)
-      const url = "http://localhost:3000/data";
+      const url1 = "http://localhost:5000/video";
+      const url2 = "http://localhost:5000/video";
+      const url3 = "http://localhost:5000/video";
       // se consume el backend
       // seba y franco del futuro --> ***** añadir la query a la url ******
-      await axios.get(url).then((response) => {
-      result = response.data;
-    })
+      await axios.get(url1, {params: {text: query}}).then((response) => {
+      resultVideos = response.data;
+      });
+      await axios.get(url2, {params: {text: query}}).then((response) => {
+        resultForos = response.data;
+      });
+      await axios.get(url3, {params: {text: query}}).then((response) => {
+        resultArticulos = response.data;
+      });
+
+      var result = {videos: resultVideos, foros: resultVideos, articulos: resultArticulos};
       // Se llama a la función setBusqueda que está en Mutations
       commit('setBusqueda', result);
 
     },
     
-    async busquedaQueryPersonalizada({commit}, idRecurso){
+    async busquedaQueryPersonalizada({commit}, recurso){
       let result = null;
-      const url = "http://localhost:3000/query";
+      const url = "http://localhost:5000/";
 
-      await axios.get(url).then((response) => {
+      await axios.get(url+recurso.tipo+"/others", {params: {id: recurso.id}}).then((response) => {
         result = response.data;
       });
       console.log(result);
