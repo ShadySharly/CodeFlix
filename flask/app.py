@@ -56,7 +56,7 @@ def search_video_others():
     if len(articles['hits']['hits']) != 0:
         top_article = articles['hits']['hits'][0]
     else:
-        top_article = None
+        top_article = ""
     #top_article = articles['hits']['hits'][0]
     #return top_article
     
@@ -93,7 +93,7 @@ def search_forum_others():
     if len(articles['hits']['hits']) != 0:
         top_article = articles['hits']['hits'][0]
     else:
-        top_article = None
+        top_article = ""
     #top_article = articles['hits']['hits'][0]
     #return top_article
     
