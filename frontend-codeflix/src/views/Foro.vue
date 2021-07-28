@@ -1,5 +1,6 @@
 <template>
 <div>
+    
     <b-container class="my-3">
         <!-- Fila pa buscar, filtrar y volver -->
         <barra-busqueda></barra-busqueda>
@@ -140,10 +141,20 @@
                             <span class="mx-1">{{video.duracion}} min</span>
                         </div>
                         <hr>
-                        <div class="px-2">
+                        <div class="px-2 contenido-text-video">
                             <b-card-text class="">
                                 {{video.descripcion}}
                             </b-card-text>
+                        </div>
+                        <div class="mt-2" v-if="this.extendido1 != 'auto'">
+                            <b-button variant="outline-warning" @click="cambiarHeightVideo()">
+                                mostrar descripción completa
+                            </b-button>
+                        </div>
+                        <div class="mt-2" v-else>
+                            <b-button variant="outline-secondary" @click="cambiarHeightVideo()">
+                                mostrar menos
+                            </b-button>
                         </div>
                     </b-card-body>
 
@@ -154,27 +165,36 @@
                 <h4>Artículos y Tutoriales</h4>
                 <b-card>
                     <div class="mb-2">
-                        <b-img src="https://openexpoeurope.com/wp-content/uploads/2016/12/logo-openwebinars.png" style="width:70%"></b-img>
+                        <h1>
+                            <a href="#">
+                                {{articulo.pagina}}
+                            </a>
+                        </h1>
                     </div>
                     <div class="mb-3">
-                        <b-card-title style="font-weight:800">Titulo del Artículo</b-card-title>
-                        <b-card-sub-title>subtitulo del articulo</b-card-sub-title>
+                        <b-card-title style="font-weight:800">{{articulo.titulo}}</b-card-title>
+                        <b-card-sub-title>{{articulo.autor}}  |  {{articulo.fecha}}</b-card-sub-title>
                     </div>
-                    <b-card-text>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate alias, repellendus quidem praesentium perspiciatis eum mollitia explicabo amet nisi voluptatem, nulla consequuntur! Similique animi deserunt doloremque, optio sit qui possimus?
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, quis quas! Soluta nihil modi reiciendis amet nemo. Quos, ipsam accusamus illum, hic quidem ea enim, mollitia eveniet inventore est porro.
-                    </b-card-text>
 
-                    <h5 style="font-weight: bold">Keywords</h5>
-                    <div>
-                        <b-badge class="tag mx-1 my-1" v-for="i in 10" :key="i" variant="warning">
-                            <a href="#" v-bind:class="buscarTag" @click="buscarTag(tag)">
-                                tag_articulo
-                            </a>
-                        </b-badge>
+                    <div class="contenido-text-articulo">
+                        <b-card-text>
+                        {{articulo.contenido}}
+                    </b-card-text>
                     </div>
+
+                    <div class="mt-2" v-if="this.extendido2 != 'auto'">
+                            <b-button variant="outline-warning" @click="cambiarHeightArticulo()">
+                                mostrar descripción completa
+                            </b-button>
+                        </div>
+                        <div class="mt-2" v-else>
+                            <b-button variant="outline-secondary" @click="cambiarHeightArticulo()">
+                                mostrar menos
+                            </b-button>
+                        </div>
                     <template #footer>
                         <div class="d-flex my-1 justify-content-end">
-                            <b-button pill variant="success" dark>
+                            <b-button pill variant="success" dark :href="articulo.link" target="_blank">
                                 Ir al sitio web
                                 <b-icon icon="arrow-up-right"></b-icon>
                             </b-button>
@@ -200,7 +220,13 @@ export default {
         return {
             video: {},
             foro: {},
-            articulo: {}
+            articulo: {},
+            heightVideo: "400px",
+            heightArticulo: "835px",
+            extenderVideo: true,
+            extenderArticulo: false,
+            extendido1: "400px",
+            extendido2: "835px"
         }
     },
     name: 'Foro',
@@ -228,6 +254,39 @@ export default {
             this.$router.replace({
                 name: 'Search'
             });
+        },
+        cambiarHeightVideo(){
+            if(this.extendido1 == "auto"){
+                document.querySelector(".contenido-text-video").style.maxHeight = this.heightVideo;
+                
+                this.extendido1 = this.heightVideo;
+                this.extenderVideo = true
+                console.log(document.querySelector(".contenido-text-video").style.maxHeight)
+            }
+            else{
+                document.querySelector(".contenido-text-video").style.maxHeight = "100%";
+                console.log(document.querySelector(".contenido-text-video").style.maxHeight)
+                this.extendido1 = "auto";
+                this.extenderVideo = false;
+                
+            }
+        },
+
+        cambiarHeightArticulo(){
+            if(this.extendido2 == "auto"){
+                document.querySelector(".contenido-text-articulo").style.maxHeight = this.heightArticulo;
+                
+                this.extendido2 = this.heightArticulo;
+                this.extenderArticulo = true
+                console.log(document.querySelector(".contenido-text-articulo").style.maxHeight)
+            }
+            else{
+                document.querySelector(".contenido-text-articulo").style.maxHeight = "100%";
+                console.log(document.querySelector(".contenido-text-articulo").style.maxHeight)
+                this.extendido2 = "auto";
+                this.extenderArticulo = false;
+                
+            }
         }
     }
 
@@ -257,5 +316,17 @@ export default {
 .tag a {
     text-decoration: none;
     color: black;
+}
+
+.contenido-text-video{
+    white-space:pre-wrap;
+    overflow: hidden;
+    max-height: 400px;
+}
+
+.contenido-text-articulo{
+    white-space:pre-wrap;
+    overflow: hidden;
+    max-height: 835px;
 }
 </style>

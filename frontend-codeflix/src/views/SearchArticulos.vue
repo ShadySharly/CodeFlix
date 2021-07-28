@@ -21,22 +21,33 @@
                         </div>
                         <b-row>
                             <b-col class="col-lg-4 col-md-6 col-12 col-sm-12 mb-md-3" v-for="(articulo, index) in articulos" :key="index">
-                                                 <b-card tag="article" class="mb-2 item">
+                                                 <b-card tag="article" class="mb-2 item card-articulo">
 
-                        <b-card-title :title=articulo.name>
+                        <b-card-title :title=articulo.titulo>
                         </b-card-title>
 
-                        <b-card-text>
+                        <div class="mx-2 mb-2 px-1" style="font-size:13px;color:grey;">
+                            <span class="mx-1">{{articulo.fecha}}</span>
+                            |
+                            <span class="mx-1">{{articulo.autor}} votos</span>
+                        </div>
+
+                        <hr>
+
+                        <div class="articulo-contenido">
+                            <b-card-text>
                             {{articulo.contenido}}
                         </b-card-text>
+                        </div>
 
-                        <b-button pill class="btn-ir-sitio" :href="articulo.url">
-                            Ir al sitio web
-                            <b-icon icon="arrow-up-right" class="ml-2"></b-icon>
-                        </b-button>
+                        <div class="mt-3">
+                            <b-button pill variant="success" dark :href="articulo.link" target="_blank">
+                                Ir al sitio web
+                                <b-icon icon="arrow-up-right"></b-icon>
+                            </b-button>
+                        </div>
 
                     </b-card>
-
                             </b-col>
                         </b-row>
                     </b-container>
@@ -106,5 +117,14 @@ export default {
     background-color: #488479;
     border-color: #488479;
 
+}
+
+.card-articulo{
+    
+
+}
+.articulo-contenido{
+    overflow: hidden;
+    max-height: 500px;
 }
 </style>

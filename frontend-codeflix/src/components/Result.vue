@@ -126,19 +126,31 @@
             <b-col class="wrapper3" cols="10">
                 <b-col v-for="articulo in getArticulos" v-bind:title="articulo.name" :key="articulo.id">
                     <!-- Card con los artículos y foros -->
-                    <b-card tag="article" class="mb-2 item">
+                    <b-card tag="article" class="mb-2 item card-articulo">
 
-                        <b-card-title :title=articulo.name>
+                        <b-card-title :title=articulo.titulo>
                         </b-card-title>
 
-                        <b-card-text>
+                        <div class="mx-2 mb-2 px-1" style="font-size:13px;color:grey;">
+                            <span class="mx-1">{{articulo.fecha}}</span>
+                            |
+                            <span class="mx-1">{{articulo.autor}} votos</span>
+                        </div>
+
+                        <hr>
+
+                        <div class="articulo-contenido">
+                            <b-card-text>
                             {{articulo.contenido}}
                         </b-card-text>
+                        </div>
 
-                        <b-button pill class="btn-ir-sitio" :href="articulo.url">
-                            Ir al sitio web
-                            <b-icon icon="arrow-up-right" class="ml-2"></b-icon>
-                        </b-button>
+                        <div class="mt-3">
+                            <b-button pill variant="success" dark :href="articulo.link" target="_blank">
+                                Ir al sitio web
+                                <b-icon icon="arrow-up-right"></b-icon>
+                            </b-button>
+                        </div>
 
                     </b-card>
                 </b-col>
@@ -395,5 +407,14 @@ export default {
     overflow: hidden;
     height: 100%;
 
+}
+.card-articulo{
+    
+    max-width: 41px;
+    overflow: hidden;
+}
+.articulo-contenido{
+    overflow: hidden;
+    max-height: 500px;
 }
 </style>
