@@ -22,7 +22,7 @@
                             <div class="d-flex flex-column align-items-center">
                                 <div>
                                     <h4>
-                                        <b-icon icon="triangle-fill" style="color:lightgrey"></b-icon>
+                                        <b-icon icon="hand-thumbs-up"></b-icon>
                                     </h4>
                                 </div>
                                 <div>
@@ -32,7 +32,7 @@
                                 </div>
                                 <div>
                                     <h4>
-                                        <b-icon icon="hand-thumbs-up"></b-icon>
+                                        <b-icon icon="hand-thumbs-down"></b-icon>
                                     </h4>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                             <div class="d-flex flex-column align-items-center">
                                 <div>
                                     <h4>
-                                        <b-icon icon="triangle-fill" style="color:lightgrey"></b-icon>
+                                        <b-icon icon="hand-thumbs-up"></b-icon>
                                     </h4>
                                 </div>
                                 <div>
@@ -79,7 +79,7 @@
                                 </div>
                                 <div>
                                     <h4>
-                                        <b-icon icon="hand-thumbs-up"></b-icon>
+                                        <b-icon icon="hand-thumbs-down"></b-icon>
                                     </h4>
                                 </div>
                             </div>

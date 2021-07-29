@@ -29,7 +29,7 @@
            
         </b-col>
         <b-col class="col-6 col-md-3">
-          <b-button class="btn-home-explorar" >¿No sabes que buscar?</b-button>
+          <b-button class="btn-home-explorar" @click="explorar()">¿No sabes que buscar?</b-button>
         </b-col>
       </b-row>
 
@@ -70,7 +70,14 @@ import {mapActions, mapMutations} from 'vuex'
         await this.busqueda(query);
         this.setRutaRegreso('Home')
         this.$router.replace('Search');
-      }   
+      },
+      
+      async explorar(){
+        var query = "a"
+        await this.busqueda(query);
+        this.setRutaRegreso('Home')
+        this.$router.replace({name: 'Explorar'});
+      },
     },
   }
 </script>

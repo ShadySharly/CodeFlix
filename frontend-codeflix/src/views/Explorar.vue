@@ -26,7 +26,7 @@ import BarraBusqueda from '../components/BarraBusqueda.vue'
 import {mapMutations} from 'vuex'
 
 export default {
-    name: 'Search',
+    name: 'Explorar',
 
     components: {
         VerticalFilter,
@@ -36,7 +36,7 @@ export default {
 
     data () {
         return {
-            explorar: false,
+            explorar: true,
         }
     },
 
@@ -46,4 +46,3 @@ export default {
     }
 }
 </script>
-

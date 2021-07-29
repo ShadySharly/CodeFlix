@@ -7,6 +7,8 @@ import SearchForos from '../views/SearchForos'
 import SearchArticulos from '../views/SearchArticulos'
 import Video from '../views/Video'
 import Foro from '../views/Foro'
+import Explorar from '../views/Explorar'
+import Comousar from '../views/Comousar'
 
 Vue.use(VueRouter)
 
@@ -53,6 +55,16 @@ const routes = [
     path: '/search/articulos',
     name: 'SearchArticulos',
     component: SearchArticulos
+  },
+  {
+    path: '/explorar',
+    name: 'Explorar',
+    component: Explorar
+  },
+  {
+    path: '/comousar',
+    name: 'Comousar',
+    component: Comousar
   }
 ]
 

@@ -64,7 +64,11 @@ export default {
       async buscar(query){
         await this.busqueda(query);
         this.setRutaRegreso('Home')
-        this.$router.replace({name: 'Search'});
+        if(this.$route.name != 'Search'){
+            this.$router.replace({name: 'Search'});
+            console.log(this.$router.name)
+        }
+        
       }
     }
 }

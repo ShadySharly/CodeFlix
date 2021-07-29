@@ -1,6 +1,7 @@
 <template>
 <div class="background-panel p-3">
-    <h3>Mostrando Resultados de: "{{query}}"</h3>
+    <h3 v-if="!explorar">Mostrando Resultados de: "{{getQuery}}"</h3>
+    <h3 v-else>Explorando Temas y Resultados</h3>
 
     <!--Mostrando videos-->
     <b-container class=" m-1 p-2">
@@ -25,7 +26,8 @@
                 <b-col v-for="(video, index) in getVideos" v-bind:title="video.titulo" :key="index" > 
                     <!-- Card con los vídeos -->
 
-                    <b-card :title=video.name :img-src=video.thumbnail img-alt="Image" img-top tag="article" class="item crop" no-body>
+                    <b-card :title=video.name :img-src=video.thumbnail img-alt="Image" img-top tag="article" class="item crop" no-body 
+                    v-b-popover.right.hover.html="video.descripcion">
                         <a href="#" v-bind:class="queryPersonalizada" @click="queryPersonalizada(video.id, 'Video')" class="stretched-link"></a>
 
                         <b-card-title class="mt-md-2 mb-0 ml-md-2 p-2">{{video.titulo}}</b-card-title>
@@ -73,7 +75,7 @@
 
                     <!-- Card con los foros -->
                 <b-col v-for="(foro, index) in getForos" :key="index">
-                  <b-card img-alt="Image" img-top class="item crop" no-body>
+                  <b-card img-alt="Image" img-top class="item crop" no-body v-b-popover.right.hover.html="foro.respuesta.contenido">
 
                         <a href="#" v-bind:class="queryPersonalizada" @click="queryPersonalizada(foro.pregunta.id, 'Foro')" class="stretched-link"></a>
                         <b-card-img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Stack_Overflow_logo.svg/1280px-Stack_Overflow_logo.svg.png" height="40px" width="100px" alt="Image" top class="pr-4 mr-5 mb-2 m-2">
@@ -185,6 +187,8 @@ export default {
 
         }
     },
+
+    props: ['explorar'],
 
     computed: {
         ...mapGetters(['getVideos', 'getForos', 'getArticulos', 'getRutaRegreso', 'getQuery'])
